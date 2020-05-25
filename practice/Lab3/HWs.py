@@ -3,70 +3,61 @@
 # @Time: 2020-05-10 1:34 p.m.
 
 """
-Q1. Write a program that reads a word list from a file and
+Write a program that reads a word list from a file and
 prints all the sets of words that are anagrams.
-
-需要重写！！！！！！！！1
 """
 
 
-# 读取单词 生成列表
+# change file to list
 def get_words_list():
     l = []
-    with open("/Users/a123/Desktop/paragraph.txt", "r") as f1:
+    with open("/Users/a123/Desktop/words 2.txt", "r") as f1:
         for i in f1:
-            words = i.strip()  #
+            words = i.strip()
             l.append(words)
         return l
 
 
-# print(get_words_list())
-# 判断是否同字母单词
+# compare two words
 def is_anagram(s1, s2):
-    if len(s1) == len(s2):
-        s1 = list(s1)
-        s1.sort()
-        s2 = list(s2)
-        s2.sort()
-        return s1 == s2
+    s1 = list(s1)
+    s1.sort()
+    s2 = list(s2)
+    s2.sort()
+    if s1 == s2:
+        return True
     else:
         return False
 
 
 # add keys and values to dictionary
 def get_all_sets(l):
-    ide = 0
-    new_l = []
+    index = 0
+    lis = []
     d = {}  # an ordinary dictionary
-    # 把同字母词放在键值对中
     for i in l:
-        new_l.insert(ide, i)
         for j in l[l.index(i) + 1:]:
             # print(j)
             if is_anagram(i, j):
-                # new_l.insert(ide, j)
                 d.setdefault(i, []).append(j)
-                del j
-        ide += 1
-        print(l)
-        print(new_l)
-    return new_l
-    # # 将键值对kv放在列表的同一位
-    # for i in d:
-    #     k = [i]
-    #     v = list(d[i])
-    #     k.extend(v)
-    #     lis.append(k)
-    # # sort list
-    # len_list = sorted(lis, key=lambda little_list: len(little_list), reverse=True)
-    # # return len_list
-    # for i in len_list:
-    #     print(i)
-    #     # return lis
+                l.remove(j)
+    # return d
+    # emerge k v
+    for i in d:
+        k = [i]
+        v = list(d[i])
+        k.extend(v)
+        lis.append(k)
+    # sort list
+    len_list = sorted(lis, key=lambda little_list: len(little_list), reverse=True)
+    # return len_list
+    for i in len_list:
+        print(i)
+        # return lis
 
 
-r = get_words_list()
-print(get_all_sets(r))
+# r = get_words_list()
+# print(get_all_sets(r))
 
 """
 Q2. The (so-called) Birthday Paradox:
@@ -117,8 +108,8 @@ def cal_proportion():
     return '{:.4%}'.format(p)
 
 
-# print(get_birthdays())
-# print(cal_proportion())
+print(get_birthdays())
+print(cal_proportion())
 
 """
 Q3. Write a function that takes a list of numbers and 
